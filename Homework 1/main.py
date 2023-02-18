@@ -77,8 +77,6 @@ def main():
     for i in range(len(images)):
         images[i] = "/home/maxim/HMI-design/Homework 1/images/" + images[i] 
 
-    print(images)
-
     # name = str(input("Enter your name - "))
 
     while True:
@@ -113,14 +111,19 @@ def main():
                 if event.key == pygame.K_v and type_selected:
                     drawGUI(screen)
 
+                    wait_time = 0
+
                     if curr_type == "full-arabic":
                         drawArabic(screen, digits)
+                        wait_time = len(digits) / 2
 
                     if curr_type == "full-pictogram":
                         drawPictogram(screen, digits, images)
+                        wait_time = len(digits)
 
                     if curr_type == "random-mixed":
                         choice = random.choice([0, 1])
+                        wait_time = len(digits)
 
                         if choice == 0:
                             drawArabic(screen, digits)
@@ -129,7 +132,7 @@ def main():
 
                     start = time.time()
 
-                    while time.time() - start <= float(len(digits)):
+                    while time.time() - start <= wait_time:
                         pygame.display.update()
 
                     type_selected = False
