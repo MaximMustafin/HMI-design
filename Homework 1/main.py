@@ -103,7 +103,15 @@ def main():
     for i in range(len(images)):
         images[i] = "/home/maxim/HMI-design/Homework 1/images/" + images[i] 
 
-    name = str(input("\nEnter your name - "))
+    name = ""
+
+    while name == "":
+        try:
+            name = str(input("\nEnter your name - "))
+        except Exception:
+                print("Wrong number! Try again!")
+                continue
+
     number = 0
 
     while True:
