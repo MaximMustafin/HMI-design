@@ -2,7 +2,8 @@ import pygame as pg
 
 pg.init()
 
-FONTS = [pg.font.SysFont("freemono", 80), pg.font.SysFont("arial", 80), pg.font.SysFont("imperialscript", 80)]
+FONTS = [pg.font.SysFont("freemono", 80), pg.font.SysFont("arial", 80), pg.font.SysFont("imperialscript", 80),
+         pg.font.SysFont("alumnisanscollegiateone", 80)]
 
 PICTOGRAMS = {
         "1":[[0, 0, 0],     # 1
