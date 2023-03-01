@@ -107,9 +107,9 @@ def main():
 
     while name == "":
         try:
-            name = str(input("\nEnter your name - "))
+            name = str(input("\nВведите своё имя - "))
         except Exception:
-                print("Wrong number! Try again!")
+                print("Неправильное значение! Попробуйте снова!")
                 continue
 
     number = 0
@@ -118,9 +118,9 @@ def main():
         
         if number == 0:
             try:
-                number = int(input("\nEnter number of digits - "))
+                number = int(input("Введите количество цифр, которое будет сгенерировано - "))
             except Exception:
-                print("Wrong value! Try again!")
+                print("Неправильное значение! Попробуйте снова!")
                 continue
 
         if len(digits) == 0:
@@ -139,17 +139,17 @@ def main():
             print(f"3) {types[2]}")
 
             try:
-                num = int(input("Enter type of digits row - "))
+                num = int(input("Введите тип генерируемых цифр - "))
                 curr_type = types[num-1]
             except Exception:
-                print("Wrong number! Try again!")
+                print("Неправильное значение! Попробуйте снова!")
                 continue
 
             try:
-                wait_time = float(input("\nEnter fixed time (secs) for showing - "))
-                print("\nGo to screen")
+                wait_time = float(input("\nВведите фиксированное время (в секундах) для показа цифр - "))
+                print("\nВернитесь к окну и нажмите клавишу 'v'")
             except Exception:
-                print("Wrong value! Try again!")
+                print("Неправильное значение! Попробуйте снова!")
                 continue
 
             type_selected = True
@@ -251,10 +251,11 @@ def main():
                         drawArabic(screen, source_digits, len(source_digits), FONTS[1])
                         drawPictogram(screen, source_digits, images, len(source_digits), 1, 500)
                 
-                    user_input = input("\nEnter the digits that were shown in the set (not necessarily in the correct order) - ")
-
-                    # check for mistakes of user input
+                    user_input = input("\nТеперь введите (в изначальном порядке и слитно) цифры, которые были показаны - ")
                     user_input = [int(x) for x in str(user_input)]
+                    while len(user_input) != len(digits):
+                        user_input = input("\nНужно ввести столько же цифр, сколько было показано! Попробуйте снова - ")
+                        user_input = [int(x) for x in str(user_input)]
 
                     output = ""
                     mistakes = 0
@@ -262,19 +263,14 @@ def main():
                     for d in digits:
                         found_digits[d] = 0
 
-                    for ud in user_input:
-                        if ud in digits:
-                            output += bcolors.OKGREEN + str(ud)
-                            found_digits[ud] = 1
-                        else:
-                            output += bcolors.FAIL + str(ud)
+                    for i in range(len(user_input)):
+                        if user_input[i] == digits[i]:
+                            output += bcolors.OKGREEN + str(user_input[i])
+                        elif user_input[i] in digits:
+                            output += bcolors.WARNING + str(user_input[i])
                             mistakes += 1
-
-                    output += " "
-
-                    for fd in found_digits.keys():
-                        if found_digits[fd] == 0:
-                            output += bcolors.WARNING + str(fd)
+                        else:
+                            output += bcolors.FAIL + str(user_input[i])
                             mistakes += 1
 
                     print(output + bcolors.ENDC)
